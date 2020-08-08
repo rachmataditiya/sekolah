@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+<data>
     <!-- Form View Of Student Reminder -->
     <record id="view_student_reminder_form_2" model="ir.ui.view">
         <field name="name">student.reminder.form</field>
@@ -1014,4 +1015,5 @@
         res_model="account.move.line"
         src_model="res.partner"
         groups="school.group_school_administration"/>
+</data>
 </odoo>

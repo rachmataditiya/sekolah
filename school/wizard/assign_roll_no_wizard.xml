@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-<data>
+
         <!-- Assign Roll Number Wizard Form View  -->
 
         <record id="view_assign_roll_no_form" model="ir.ui.view">
@@ -25,12 +25,12 @@
         <record id="action_assign_roll_no_form" model="ir.actions.act_window">
             <field name="name">Assign Roll Number</field>
             <field name="res_model">assign.roll.no</field>
-            <field name="view_mode">form</field>
+            <field name="binding_view_types">form</field>
             <field name="view_id" ref="view_assign_roll_no_form" />
             <field name="target">new</field>
         </record>
 
         <!-- MenuItem For Configurations->Move Classes -->
-        <menuitem id="menu_assign_rollno_form" name="Dapatkan Nomor Urut" parent="menu_configuration" action="action_assign_roll_no_form" />
-</data>
+        <menuitem id="menu_assign_rollno_form" name="Assign Roll Number" parent="menu_configuration" action="action_assign_roll_no_form" />
+
 </odoo>

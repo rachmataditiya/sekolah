@@ -5,11 +5,12 @@ from odoo import models, fields, api
 
 class MoveStandards(models.TransientModel):
     _name = 'move.standards'
-    _description = "Pindah Tingkat"
+    _description = "Move Standards"
 
     academic_year_id = fields.Many2one('academic.year', 'Academic Year',
                                        required=True)
 
+    
     def move_start(self):
         '''Code for moving student to next standard'''
         academic_obj = self.env['academic.year']

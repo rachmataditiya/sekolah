@@ -97,7 +97,7 @@
         <record id="action_school_parent_form" model="ir.actions.act_window">
             <field name="name">Profil Orang Tua</field>
             <field name="res_model">school.parent</field>
-            <field name="view_mode">tree,form</field>
+            <field name="binding_view_types">tree,form</field>
         </record>
 
         <menuitem id="menu_res_partner_form" name="Orang Tua" parent="menu_students_parents"

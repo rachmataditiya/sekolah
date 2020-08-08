@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-<data>
     <!-- Form View Of Student Reminder -->
     <record id="view_student_reminder_form_2" model="ir.ui.view">
         <field name="name">student.reminder.form</field>
@@ -361,7 +360,7 @@
     <record id="action_student_cast_form_7" model="ir.actions.act_window">
         <field name="name">Agama</field>
         <field name="res_model">student.cast</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- From View Of Grade System -->
     <record id="view_grade_form" model="ir.ui.view">
@@ -555,13 +554,13 @@
     <record id="action_mother_toungue" model="ir.actions.act_window">
         <field name="name">Bahasa Ibu</field>
         <field name="res_model">mother.toungue</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Student Document Type -->
     <record id="action_document_type_form" model="ir.actions.act_window">
         <field name="name">Tipe Dokumen</field>
         <field name="res_model">document.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Form View Of Standard Division Information-->
     <record id="view_standard_division_form" model="ir.ui.view">
@@ -734,7 +733,7 @@
     <record id="action_student_reminder" model="ir.actions.act_window">
         <field name="name">Pengingat Siswa</field>
         <field name="res_model">student.reminder</field>
-        <field name="view_mode">kanban,form</field>
+        <field name="binding_view_types">kanban,form</field>
         <field name="help" type="html">
             <p class="oe_view_nocontent_create">
                 Klik untuk menambah pengingat baru.
@@ -748,7 +747,7 @@
 
     <!-- Action View Of Kanban View Of Student Reminder -->
     <record id="action_view_student_reminder_kanban" model="ir.actions.act_window.view">
-        <field name="view_mode">kanban</field>
+        <field name="binding_view_types">kanban</field>
         <field eval="0" name="sequence" />
         <field name="view_id" ref="student_reminder_kanban_view" />
         <field name="act_window_id" ref="action_student_reminder" />
@@ -757,55 +756,55 @@
     <record id="action_school_school_form" model="ir.actions.act_window">
         <field name="name">Jenjang</field>
         <field name="res_model">school.school</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of School Standard -->
     <record id="action_school_standard_form" model="ir.actions.act_window">
         <field name="name">Kelas</field>
         <field name="res_model">school.standard</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="binding_view_types">kanban,tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Elective Subject -->
     <record id="action_elective_subject_form" model="ir.actions.act_window">
         <field name="name">Group Mata Pelajaran</field>
         <field name="res_model">subject.elective</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Grade System -->
     <record id="action_grade_master_form" model="ir.actions.act_window">
         <field name="name">Nilai</field>
         <field name="res_model">grade.master</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Academic Year Information -->
     <record id="action_academic_year_form" model="ir.actions.act_window">
         <field name="name">Tahun Pelajaran</field>
         <field name="res_model">academic.year</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Academic Month Information -->
     <record id="action_academic_month_form" model="ir.actions.act_window">
         <field name="name">Bulan</field>
         <field name="res_model">academic.month</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Standard Division Information Action -->
     <record id="action_standard_division_form" model="ir.actions.act_window">
         <field name="name">Kelas</field>
         <field name="res_model">standard.division</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Subject Information -->
     <record id="action_subject_subject_form" model="ir.actions.act_window">
         <field name="name">Mata Pelajaran</field>
         <field name="res_model">subject.subject</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Action Of Form & Tree Views Of Standard Information -->
     <record id="action_standard_standard_form" model="ir.actions.act_window">
         <field name="name">Tingkat</field>
         <field name="res_model">standard.standard</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Form View Of Student News -->
     <record id="edit_student_news_form" model="ir.ui.view">
@@ -863,7 +862,7 @@
         <field name="name">Berita Siswa</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">student.news</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
     <!-- Form View of Class Room -->
     <record id="class_room_form_view" model="ir.ui.view">
@@ -896,7 +895,7 @@
     <record id="action_class_room" model="ir.actions.act_window">
         <field name="name">Ruang Kelas</field>
         <field name="res_model">class.room</field>
-        <field name="view_mode">tree,form</field>
+        <field name="binding_view_types">tree,form</field>
     </record>
 
     <!-- Menu Item Of EMS -->
@@ -1015,5 +1014,4 @@
         res_model="account.move.line"
         src_model="res.partner"
         groups="school.group_school_administration"/>
-</data>
 </odoo>

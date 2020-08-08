@@ -22,6 +22,9 @@ class SchoolTeacher(models.Model):
                                   'Mata Pelajaran ')
     school_id = fields.Many2one('school.school', "Jenjang",
                                 related="standard_id.school_id", store=True)
+    category_ids = fields.Many2many('hr.employee.category',
+                                    'employee_category_rel', 'emp_id',
+                                    'category_id', 'Tags')
     department_id = fields.Many2one('hr.department', 'Departemen')
     is_parent = fields.Boolean('Is Parent')
     stu_parent_id = fields.Many2one('school.parent', 'Orang Tua dari')
@@ -61,6 +64,7 @@ class SchoolTeacher(models.Model):
             self.parent_crt(teacher_id)
         return teacher_id
 
+    
     def parent_crt(self, manager_id):
         stu_parent = []
         if manager_id.stu_parent_id:
@@ -86,6 +90,7 @@ class SchoolTeacher(models.Model):
         group_ids = [group.id for group in groups]
         user_rec.write({'groups_id': [(6, 0, group_ids)]})
 
+    
     def write(self, vals):
         if vals.get('is_parent'):
             self.parent_crt(self)

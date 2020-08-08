@@ -6,6 +6,7 @@ from odoo import models, fields, api
 class MailTemplate(models.Model):
     _inherit = "mail.template"
 
+    
     def generate_email(self, res_ids, fields=None):
         '''Method to generate email'''
         ret = super(MailTemplate, self).generate_email(res_ids, fields=fields)
@@ -23,10 +24,11 @@ class MailTemplate(models.Model):
 
 class SendMail(models.TransientModel):
     _name = "send.email"
-    _description = "Kirim Email"
+    _description = "Send Mail"
 
     note = fields.Text('Text')
 
+    
     def send_email(self):
         '''Method to send email'''
         body = ''

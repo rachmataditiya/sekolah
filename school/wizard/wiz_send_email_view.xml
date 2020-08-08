@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <odoo>
-<data>
-    <!-- Form View Of Send Mail -->
+
+    <!-- Form View Of Send Mail 
 
     <record id="wiz_send_email_form_view" model="ir.ui.view">
         <field name="name">send.email.form</field>
@@ -16,16 +18,14 @@
             </form>
         </field>
     </record>
-</data>
-    <!-- Action Of Form View Of Send Mail -->
 
     <act_window id="act_send_email"
-        name="Kirim Email"
+        name="Send Email"
         res_model="send.email"
         src_model="student.student"
         view_mode="form"
         target="new"
         view_type="form" groups="school.group_school_administration,school.group_school_teacher"
         />
-
+-->
 </odoo>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
+<data>
     <!-- Form View 1 Of Student's Profiles -->
     <record id="view_student_student_form_1" model="ir.ui.view">
         <field name="name">student.student.form.1</field>
@@ -677,4 +678,5 @@
         <field name="view_id" ref="student_student_kanban_view" />
         <field name="act_window_id" ref="action_student_student_form_12" />
     </record>
+</data>
 </odoo>

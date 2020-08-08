@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-
+<data>
     <!-- Assign Roll Number Wizard Form View  -->
     <record id="view_move_standards_form" model="ir.ui.view">
         <field name="name">move_standards.form</field>
@@ -30,5 +30,5 @@
 
     <!-- MenuItem For Configurations->Move Classes -->
     <menuitem id="menu_move_standards_form" name="Pindahkan Kelas" parent="menu_configuration" action="action_move_standards_form" />
-
+</data>
 </odoo>

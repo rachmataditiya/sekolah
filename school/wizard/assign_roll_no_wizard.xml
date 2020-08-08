@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-
+<data>
         <!-- Assign Roll Number Wizard Form View  -->
 
         <record id="view_assign_roll_no_form" model="ir.ui.view">
@@ -32,5 +32,5 @@
 
         <!-- MenuItem For Configurations->Move Classes -->
         <menuitem id="menu_assign_rollno_form" name="Dapatkan Nomor Urut" parent="menu_configuration" action="action_assign_roll_no_form" />
-
+</data>
 </odoo>

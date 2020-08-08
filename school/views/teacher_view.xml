@@ -141,7 +141,6 @@
         <record id="action_school_teacher_form" model="ir.actions.act_window">
             <field name="name">Teacher Profile</field>
             <field name="res_model">school.teacher</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 

@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <!-- Form View 1 Of Student's Profiles -->
+    <record id="view_student_student_form_1" model="ir.ui.view">
+        <field name="name">student.student.form.1</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <form string="Informasi Siswa" create="false" delete="false">
+                <header>
+                    <button class="oe_highlight oe_stat_button" name="%(school.action_terminate_wizard)d" string="Keluarkan" type="action" icon="fa-ban" states="done" groups="school.group_school_administration" />
+                    <button class="oe_stat_button" name="set_alumni" string="Lulus" type="object" icon="fa-archive" states="done" groups="school.group_school_administration" />
+                    <button class="oe_stat_button" icon="fa-check" name="admission_done" type="object" string="Diterima" states="draft" groups="school.group_school_administration" />
+                    <field name="state" widget="statusbar" statusbar_visible="alumni,terminate" attrs="{'invisible':[('state','=','done')]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="buttons"></div>
+                    <div class="oe_inline">
+                        <newline />
+                        <separator string="Informasi Pribadi" />
+                        <b>
+                            <field name="reg_code" readonly="1" />
+                        </b>
+                        <br />
+                        <field name="photo" widget="image" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;"/>
+                        <div class="oe_title">
+                            <group>
+                                <field name="name" placeholder="Nama Depan" nolabel="1" required="1" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <br />
+                                <field name="middle" placeholder="Nama Tengah" nolabel="1" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <br />
+                                <field name="last" placeholder="Nama Belakang" nolabel="1" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <br />
+                                <field name="pid" invisible="1"/>
+                            </group>
+                        </div>
+                    </div>
+                    <group>
+                        <group string="Informasi Siswa">
+                            <field name="student_code" readonly="1" />
+                            <field name="roll_no" help="Nomor Urut Siswa" readonly="1"/>
+                            <field name="year" placeholder="Tahun Ajaran" widget="selection" help="Tahun ajaran siswa" attrs="{'readonly':['|',('state','in',['alumni','terminate']),('teachr_user_grp','=',True)]}"/>
+                            <field name="school_id" placeholder="Jenjang" widget="selection" help="Jenjang" attrs="{'readonly':['|',('state','in',['alumni','terminate']),('teachr_user_grp','=',True)]}"/>
+                        </group>
+                        <group string="Informasi Tingkat">
+                            <field name="standard_id" placeholder="Tingkat" readonly="1" domain="[('school_id','=',school_id)]" widget="selection" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            <field name="division_id" placeholder="Kelas" invisible="1" widget="selection" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <label for="street" string="Alamat" />
+                            <div class="o_address_format">
+                                <field name="street" class="o_address_street" placeholder="Jalan..." attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="street2" class="o_address_street" placeholder="Kelurahan..." attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="city" placeholder="Kota" class="o_address_city" required="1" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="state_id" domain="[('country_id','=',country_id)]" class="o_address_state" required="1" placeholder="Provinsi" options="{&quot;no_open&quot;: True}" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="zip" placeholder="Kode Pos" class="o_address_zip" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="country_id" placeholder="Negara" class="o_address_country,oe_no_button" options="{&quot;no_open&quot;: True}" required="1" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="phone" placeholder="No Telp" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            <field name="mobile" placeholder="No HP" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            <field name="email" placeholder="Alamat Email" String="Email" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            <field name="website" widget="url" placeholder="e.g. www.arkana.co.id" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            <field name="teachr_user_grp" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Umum" name="general">
+                            <group>
+                                <group>
+                                    <field name="cast_id" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" widget="selection" placeholder="Agama"/>
+                                    <field name="date_of_birth" widget="date" placeholder="Tanggal Lahir" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                    <field name="gender" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" placeholder="Jenis Kelamin" required="1"/>
+                                    <field name="age"/>
+                                </group>
+                                <group>
+                                    <field name="mother_tongue" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"  widget="selection" placeholder="Bahasa Ibu"/>
+                                    <field name="admission_date" widget="date" placeholder="Tanggal Masuk" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" readonly="1"/>
+                                </group>
+                                <newline />
+                                <separator string="Kontak Darurat" colspan="4" />
+                                <newline />
+                                <group colspan="4" col="4">
+                                    <field name="contact_phone" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" placeholder="No Telp"/>
+                                    <field name="contact_mobile" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" placeholder="No HP"/>
+                                </group>
+                                <newline />
+                            </group>
+                            <newline/>
+                            <separator string="Alasan Dikeluarkan" attrs="{'invisible':[('state','in',['draft','done','alumni'])]}"/>
+                            <group>
+                                    <field name="terminate_reason" attrs="{'invisible':[('state','in',['draft','done','alumni'])]}" readonly="1"/>
+                              </group>
+                        </page>
+                        <page string="Orang Tua">
+                            <field name="parent_id" 
+                                        attrs="{'readonly':[('state','in',['alumni','terminate'])]}" 
+                                        context="{'form_view_ref':'school.view_parent_form','default_parent_school':1}"
+                                        options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                        </page>
+                        <page string="Referensi">
+                            <field name="reference_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','in',['alumni','terminate'])]}">
+                                <tree string="Referensi" editable="top">
+                                    <field name="name" />
+                                    <field name="middle" />
+                                    <field name="last" />
+                                    <field name="designation" />
+                                    <field name="phone" />
+                                    <field name="gender" />
+                                </tree>
+                                <form string="Referensi">
+                                    <group col="4" colspan="4">
+                                        <field name="name" placeholder="Nama Depan"/>
+                                        <field name="gender"/>
+                                        <field name="middle" placeholder="Nama Tengah"/>
+                                        <field name="designation" placeholder="Gelar"/>
+                                        <field name="last" placeholder="Nama Belakang"/>
+                                        <field name="phone" placeholder="No Tlp"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Sekolah Sebelumnya">
+                            <field name="previous_school_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','in',['alumni','terminate'])]}">
+                                <tree string="Informasi Sekolah Sebelumnya">
+                                    <field name="name" />
+                                    <field name="registration_no" />
+                                    <field name="admission_date" />
+                                    <field name="exit_date" />
+                                    <field name="course_id" widget="selection" />
+                                </tree>
+                                <form string="Informasi Sekolah Sebelumnya">
+                                    <separator string="Detil Sekolah Sebelumnya" />
+                                    <group col="4" colspan="4">
+                                        <field name="name" placeholder="Nama Sekolah" />
+                                        <field name="registration_no" placeholder="Nomor Pendaftaran" />
+                                        <field name="admission_date" />
+                                        <field name="exit_date" />
+                                        <field name="course_id" widget="selection"/>
+                                        <newline />
+                                        <separator string="Detil Mata Pelajaran"/>
+                                        <field name="add_sub" nolabel="1" colspan="4" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Informasi Prestasi">
+                            <field name="award_list" nolabel="1" colspan="4" attrs="{'readonly':[('state','in',['alumni','terminate'])]}">
+                                <tree string="Referensi" editable="top">
+                                    <field name="name" required="1" placeholder="Nama"/>
+                                    <field name="description" placeholder="Keterangan"/>
+                                </tree>
+                                <form string="Referensi">
+                                    <group col="4" colspan="4">
+                                        <field name="name" placeholder="Nama Prestasi"/>
+                                        <field name="description" placeholder="Keterangan"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Informasi Keluarga">
+                            <field name="family_con_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','in',['alumni','terminate'])]}">
+                                <form string="Kontak Keluarga">
+                                    <group>
+                                        <group>
+                                            <field name="rel_name" />
+                                            <field name="stu_name" placeholder="Buat atau pilih nama" attrs="{'invisible':[('rel_name','!=','exist')]}"
+                                                    options="{&quot;no_create&quot;: True}"/>
+                                            <field name="name" placeholder="Name" attrs="{'invisible':[('rel_name','!=','new')]}"/>
+                                            <field name="relation" placeholder="Masukan hubungan" />
+                                        </group>
+                                        <group>
+                                            <field name="phone" placeholder="No Telp" />
+                                            <field name="email" placeholder="Alamat Email" />
+                                        </group>
+                                    </group>
+                                </form>
+                                <tree string="Kontak Keluarga">
+                                    <field name="relative_name"/>
+                                    <field name="relation" />
+                                    <field name="phone" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Kesehatan">
+                            <group>
+                                <group string="Informasi Dokter">
+                                    <field name="designation" placeholder="Spesialis Dokter" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                    <field name="doctor_phone" placeholder="No Kontak Dokter" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                </group>
+                                <group string="Informasi Fisik">
+                                    <field name="blood_group" placeholder="contoh: B+,Ab+" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                    <field name="height" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" placeholder="Tinggi Badan"/>
+                                    <field name="weight" attrs="{'readonly':[('state','in',['alumni','terminate'])]}" placeholder="Berat Badan"/>
+                                </group>
+                            </group>
+                            <separator string="Apakah siswa punya penyakit khusus?" colspan="4" />
+                            <group col="6" colspan="4">
+                                <field name="eye" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="ear" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="nose_throat" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="respiratory" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="cardiovascular" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="neurological" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="muskoskeletal" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="dermatological" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                                <field name="blood_pressure" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            </group>
+                            <separator string="Catatan" colspan="4" />
+                            <group col="6" colspan="4">
+                                <field name="comment" placeholder="Catatan Kesehatan.." nolabel="1" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
+                            </group>
+                        </page>
+                        <page string="Sertifikat">
+                            <field name="certificate_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','in',['alumni','terminate'])]}">
+                                <form string="Sertifikat">
+                                    <group col="4">
+                                        <field name="description" placeholder="Keterangan Sertifikat" />
+                                        <field name="certi" />
+                                    </group>
+                                </form>
+                                <tree string="Sertifikat" editable="top">
+                                    <field name="description" required="1" placeholder="Masukan Keterangan"/>
+                                    <field name="certi" required="1" placeholder="Upload Sertifikat"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Catatan">
+                            <field name="description" nolabel="1" colspan="4" attrs="{'readonly':[('state','in',['alumni','terminate'])]}">
+                                <form string="Detil Tambahan">
+                                    <group col="4" colspan="2">
+                                        <field name="name" placeholder="Judul" />
+                                        <field name="description" placeholder="Keterangan" />
+                                    </group>
+                                </form>
+                                <tree string="Catatan" editable="top">
+                                    <field name="name" required="1" placeholder="Judul"/>
+                                    <field name="description" placeholder="Keterangan"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Rekam Siswa" groups="school.group_school_administration,school.group_school_teacher,school.group_school_parent,school.group_school_student">
+                            <field name="history_ids" nolabel="1" colspan="4" readonly="1" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"
+                                options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}">
+                                <tree string="Rekam Siswa">
+                                    <field name="academice_year_id" required="1"/>
+                                    <field name="standard_id" required="1"/>
+                                    <field name="percentage"/>
+                                    <field name="result"/>
+                                </tree>
+                                <form string="Rekam Siswa">
+                                    <group col="4" colspan="4">
+                                        <field name="academice_year_id" placeholder="Tahun Ajaran" />
+                                        <field name="standard_id" placeholder="Pilih atau buat tingkat kelas" />
+                                        <field name="percentage" />
+                                        <field name="result" />
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Tree View 1 Of Student's Profiles -->
+    <record id="view_student_student_tree_1" model="ir.ui.view">
+        <field name="name">student.student.tree.1</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <tree string="Informasi Siswa" create="false" delete="false">
+                <field name="pid" />
+                <field name="name" />
+                <field name="student_name" invisible="1" />
+                <field name="year" widget="selection" />
+                <field name="admission_date" />
+                <field name="gender" />
+                <field name="state" />
+                <field name="school_id" />
+            </tree>
+        </field>
+    </record>
+    <!-- Search View 1 Of Student's Profiles -->
+    <record id="view_student_student_search_1" model="ir.ui.view">
+        <field name="name">student.student.search.1</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <search string="Informasi Siswa">
+                <group col="10" colspan="4">
+                    <field name="pid" />
+                    <field name="student_name" invisible="1" />
+                    <field name="year" />
+                    <field name="gender" />
+                    <field name="school_id" placeholder="School"/>
+                </group>
+                <newline />
+                <group expand="0" string="Kelompokan..." colspan="12" col="10">
+                    <filter name="class" string="Kelas" help="Berdasarkan Kelas" context="{'group_by':'standard_id'}" />
+                    <filter name="gender" string="Jenis Kelamin" help="Berdasarkan Jenis Kelamin" context="{'group_by':'gender'}" />
+                    <filter name="name" string="Nama" help="Berdasarkan Nama" context="{'group_by':'student_name'}" />
+                    <filter name="school" string="Jenjang" help="Berdasarkan Jenjang" context="{'group_by':'school_id'}" />
+                    <filter name="state" string="Status" help="Berdasarkan Status" context="{'group_by':'state'}"/>
+                </group>
+                <separator/>
+                <filter name="alumni" string="Lulus" domain="[('state','=', 'alumni')]" help="Siswa Sudah Lulus Sekolah"/>
+                <filter name="terminate" string="Dikeluarkan" domain="[('state','=', 'terminate')]" help="Siswa Dikeluarkan Dari Sekolah"/>
+                <filter name="done" string="Diterima" domain="[('state','=', 'done')]" help="Siswa Sudah Diterima"/>
+            </search>
+        </field>
+    </record>
+    <!-- Kanban View Of Student's Profiles -->
+    <record id="student_student_kanban_view" model="ir.ui.view">
+        <field name="name">Kanban Siswa</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="standard_id" nocreate="1" create="false">
+                <field name="color"/>
+                <field name="id"/>
+                <field name="name"/>
+                <field name="email"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <t t-set="color" t-value="kanban_color(record.color.raw_value || record.name.raw_value)" />
+                        <div t-att-class="color + (record.color.raw_value == 1 ? ' oe_kanban_color_alert' : '')">
+                            <div class="oe_kanban_box oe_kanban_color_border">
+                                <div class="oe_kanban_box_header oe_kanban_color_bgdark oe_kanban_color_border oe_kanban_draghandle">
+                                    <table class="oe_kanban_table">
+                                        <tr>
+                                            <td class="oe_kanban_title1" align="left" valign="middle" style="padding-left:10px;">
+                                                <h4>
+                                                    <a type="open">
+                                                        <field name="name" />
+                                                        <field name="middle" />
+                                                        <field name="last" />
+                                                        <field name="student_name" invisible="1" />
+                                                        <field name="standard_id" invisible="1" />
+                                                        <field name="school_id" invisible="1" />
+                                                        <field name="gender" invisible="1" />
+                                                        <field name="state" invisible="1" />
+                                                    </a>
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="oe_kanban_box_content oe_kanban_color_bglight oe_kanban_box_show_onclick_trigger oe_kanban_color_border">
+                                    <table class="oe_kanban_table">
+                                        <tr width="300">
+                                            <td valign="top" width="64" align="left">
+                                                <a type="open">
+                                                    <img heigh="80" width="80" t-att-src="kanban_image('student.student', 'photo', record.id.raw_value)" alt="image"/>
+                                                </a>
+                                            </td>
+                                            <td valign="top" align="left" style="padding-left:10px;">
+                                                <table>
+                                                    <tr>
+                                                        <td>Nomor Induk :</td>
+                                                        <td style="padding-left:10px;">
+                                                            <b>
+                                                                <field name="pid" />
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tingkat : </td>
+                                                        <td style="padding-left:10px;">
+                                                            <b>
+                                                                <field name="standard_id" />
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tanggal Masuk : </td>
+                                                        <td style="padding-left:10px;">
+                                                            <b>
+                                                                <field name="admission_date" />
+                                                            </b>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <center>
+                                                    <b>
+                                                        <field name="gender" />
+                                                    </b>
+                                                </center>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="oe_kanban_buttons_set oe_kanban_color_border oe_kanban_color_bglight oe_kanban_box_show_onclick">
+                                    <div class="oe_kanban_left">
+                                        <a role="button" string="Rubah " class="btn btn-sm btn-default fa fa-pencil" type="edit" groups="school.group_school_administration"/>
+                                        <a role="button" string="Ganti Warna" icon="color-picker" type="color" name="color" />
+                                    </div>
+                                    <br class="oe_kanban_clear" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <!-- Form View Of Admission Register Information -->
+    <record id="view_student_student_form_2" model="ir.ui.view">
+        <field name="name">student.student.form.2</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <form string="Pendaftaran Siswa Baru">
+                <header>
+                    <button class="oe_highlight oe_stat_button" name="set_terminate" string="Keluarkan" type="object" icon="fa-ban" states="done" groups="school.group_school_administration"/>
+                    <button class="oe_stat_button" name="set_alumni" string="Lulus" type="object" icon="fa-archive" states="done" groups="school.group_school_administration" />
+                    <button class="oe_stat_button" icon="fa-check" name="admission_done" type="object" string="Diterima" states="draft" groups="school.group_school_administration" />
+                    <button class="oe_stat_button" icon="fa-ban" name="cancel_admission" type="object" string="Batal" states="draft" groups="school.group_school_administration"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,cancel"/>
+                </header>
+                <sheet>
+                    <div class="oe_inline">
+                        <newline />
+                        <separator string="Informasi Pribadi" />
+                        <field name="photo" widget="image" class="oe_avatar oe_left" style="max-width:100px;max-height:117px;" />
+                        <div class="oe_title">
+                            <group>
+                                <field name="pid" nolabel="1" readonly="1"/>
+                                <br />
+                                <field name="name" placeholder="Nama Depan" nolabel="1" required="1" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <br />
+                                <field name="middle" placeholder="Nama Tengah" nolabel="1" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <br />
+                                <field name="last" placeholder="Nama Belakang" nolabel="1" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <br/>
+                                <field name="active" invisible="1"/>
+                            </group>
+                        </div>
+                    </div>
+                    <group>
+                        <group string="Informasi Jenjang">
+                            <field name="school_id" placeholder="Nama Jenjang" required="1" 
+                                attrs="{'readonly':[('state','=','alumni')]}" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <field name="year" widget="selection" placeholder="Tahun Ajaran" readonly="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                        <group string="Informasi kelas">
+                            <field name="standard_id" placeholder="Tingkat Kelas" domain="[('school_id','=',school_id)]" widget="selection" attrs="{'readonly':[('state','=','alumni')]}"/>
+                            <field name="division_id" placeholder="Nama Kelas" widget="selection" attrs="{'readonly':[('state','=','alumni')]}" invisible="1"/>
+                            
+                        </group>
+                    </group>
+                    <group colspan="4">
+                        <group>
+                            <label for="street" string="Alamat" />
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Jalan..." class="o_address_street" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <field name="street2" placeholder="Kelurahan..." class="o_address_street" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <field name="country_id" placeholder="Negara" class="o_address_country,oe_no_button" required="1" options="{&quot;no_open&quot;: True}" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <field name="city" placeholder="Kota" class="o_address_city" required="1" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <field name="state_id" class="o_address_state" domain="[('country_id','=',country_id)]" placeholder="Provinsi" options="{&quot;no_open&quot;: True}" required="1" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                <field name="zip" placeholder="Kode Pos" class="o_address_zip" attrs="{'readonly':[('state','=','alumni')]}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="phone" placeholder="No Tlp." attrs="{'readonly':[('state','=','alumni')]}"/>
+                            <field name="mobile" placeholder="No HP." attrs="{'readonly':[('state','=','alumni')]}"/>
+                            <field name="email" placeholder="Alamat Email" String="Email" attrs="{'readonly':[('state','=','alumni')]}"/>
+                            <field name="website" widget="url" placeholder="e.g. www.arkana.co.id" attrs="{'readonly':[('state','=','alumni')]}"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General">
+                            <form string="Informasi General">
+                                <sheet>
+                                    <group string="Informasi Umum">
+                                        <group>
+                                            <field name="gender" placeholder="Jenis Kelamin" attrs="{'readonly':[('state','=','alumni')]}" required="1"/>
+                                            <field name="date_of_birth" placeholder="Tanggal Lahir" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                            <field name="age" />
+                                        </group>
+                                        <group>
+                                            <field name="mother_tongue" widget="selection" placeholder="Bahasa Ibu" attrs="{'readonly':[('state','=','alumni')]}"/>
+                                            <field name="admission_date" placeholder="Tanggal Masuk" attrs="{'readonly':[('state','=','alumni')]}" readonly="1"/>
+                                        </group>
+                                        <newline />
+                                        <separator string="Kontak Darurat" colspan="4" />
+                                        <newline />
+                                        <group colspan="4" col="4">
+                                            <field name="contact_phone" attrs="{'readonly':[('state','=','alumni')]}" placeholder="No Tlp."/>
+                                            <field name="contact_mobile" attrs="{'readonly':[('state','=','alumni')]}" placeholder="No HP."/>
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </page>
+                        <page string="Orang Tua">
+                            <field name="parent_id" attrs="{'readonly':[('state','=','alumni')]}"
+                                context="{'form_view_ref':'school.view_parent_form','default_parent_school':1}"
+                                options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                        </page>
+                        <page string="Referensi">
+                            <field name="reference_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','=','alumni')]}">
+                                <tree string="Referensi" editable="top">
+                                    <field name="name" placeholder="Nama Depan"/>
+                                    <field name="middle" placeholder="Nama Tengah"/>
+                                    <field name="last" placeholder="Nama Belakang"/>
+                                    <field name="designation" placeholder="Gelar"/>
+                                    <field name="phone" placeholder="Telp"/>
+                                    <field name="gender" placeholder="Jenis Kelamin"/>
+                                </tree>
+                                <form string="Referensi">
+                                    <group col="4" colspan="4">
+                                        <field name="name" placeholder="Nama Depan" required="True"/>
+                                        <field name="middle" placeholder="Nama Tengah" />
+                                        <field name="last" placeholder="Nama Belakang" />
+                                        <field name="designation" placeholder="Gelar" />
+                                        <field name="phone" placeholder="No Tlp." />
+                                        <field name="gender" placeholder="Jenis Kelamin"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Sekolah Sebelumnya">
+                            <field name="previous_school_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','=','alumni')]}">
+                                <tree string="Detil Sekolah Sebelumnya">
+                                    <field name="name" />
+                                    <field name="registration_no" />
+                                    <field name="admission_date" />
+                                    <field name="exit_date" />
+                                    <field name="course_id" widget="selection" />
+                                </tree>
+                                <form string="Detil Sekolah Sebelumnya">
+                                    <separator string="Detil Sekolah Sebelumnya" />
+                                    <group col="4" colspan="4">
+                                        <field name="name" placeholder="Nama Sekolah" />
+                                        <field name="registration_no" placeholder="Nomor Registrasi" />
+                                        <field name="admission_date" placeholder="Tanggal Masuk"/>
+                                        <field name="exit_date" placeholder="Tanggal Keluar"/>
+                                        <field name="course_id" placeholder="Mata Pelajaran" widget="selection"/>
+                                        <newline />
+                                        <separator string="Detil Mata Pelajaran" />
+                                        <field name="add_sub" nolabel="1" colspan="4"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Detil Keluarga">
+                            <field name="family_con_ids" nolabel="1" colspan="4" attrs="{'readonly':[('state','=','alumni')]}">
+                                <tree string="Detil Kontak Keluaga">
+                                    <field name="relative_name"/>
+                                    <field name="relation" />
+                                    <field name="phone" />
+                                </tree>
+                                <form string="Detil Kontak Keluarga">
+                                    <group>
+                                        <group>
+                                            <field name="rel_name" placeholder="Nama" />
+                                            <field name="stu_name" placeholder="Buat atau pilih nama" attrs="{'invisible':[('rel_name','!=','exist')]}"
+                                                        options="{&quot;no_create&quot;: True}"/>
+                                            <field name="name" placeholder="Nama" attrs="{'invisible':[('rel_name','!=','new')]}"/>
+                                            <field name="relation" placeholder="Masukan relasi" />
+                                            <field name="relative_name" invisible="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="phone" placeholder="No Tlp." />
+                                            <field name="email" placeholder="Alamat Email" />
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Catatan">
+                            <form string="Catatan">
+                                <field name="remark" placeholder="Catatan" nolabel="1" colspan="4" attrs="{'readonly':[('state','=','alumni')]}"/>
+                            </form>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Tree View Of Admission Register Information -->
+    <record id="view_student_student_tree_2" model="ir.ui.view">
+        <field name="name">student.student.tree.2</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <tree string="Pendaftaran Siswa Baru">
+                <field name="pid" />
+                <field name="name" />
+                <field name="student_name" invisible="1" />
+                <field name="year" widget="selection" />
+                <field name="standard_id" widget="selection" />
+                <field name="school_id" />
+                <field name="admission_date" />
+                <field name="gender" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+    <!-- Search View Of Admission Register Information -->
+    <record id="view_student_student_search_2" model="ir.ui.view">
+        <field name="name">student.student.search.2</field>
+        <field name="model">student.student</field>
+        <field name="arch" type="xml">
+            <search string="Pendaftaran Siswa Baru">
+                <filter string="Draft" name="state_student" domain="[('state','=', 'draft')]" help="Drat Pendaftaran" />
+                <separator orientation="vertical" />
+                <field name="student_name" invisible="1" />
+                <field name="year" />
+                <field name="standard_id" />
+                <field name="gender" />
+                <field name="school_id" />
+                <newline />
+                <group expand="0" string="Kelompokan..." colspan="12" col="10">
+                    <filter name="class" string="Kelas" domain="[]" help="Berdasarkan Kelas" context="{'group_by':'standard_id'}" />
+                    <filter name="gender" string="Jenis Kelamin" domain="[]" help="Berdasarkan Kelamin" context="{'group_by':'gender'}" />
+                    <filter name="name" string="Nama" domain="[]" help="Berdasarkan Kelas" context="{'group_by':'student_name'}" />
+                    <filter name="school" string="Jenjang" help="Berdasarkan Jenjang" context="{'group_by':'school_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action Of Form, Tree & Kanban View Of Admission Register Information -->
+    <record id="action_student_student_form_2" model="ir.actions.act_window">
+        <field name="name">Pendaftaran Siswa Baru</field>
+        <field name="res_model">student.student</field>
+        <field name="domain">['|',('state','=','draft'),('state','=','cancel')]</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_student_student_form_2" />
+        <field name="search_view_id" ref="view_student_student_search_2" />
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- Action View 2 Of Kanban View Of Student Information -->
+    <record id="action_view_student_student_kanban_2" model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field eval="21" name="sequence" />
+        <field name="view_id" ref="student_student_kanban_view" />
+        <field name="act_window_id" ref="action_student_student_form_2" />
+    </record>
+
+    <!-- Action View 2 Of Tree View Of Student Information -->
+    <record id="action_student_student_tree_2" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field eval="20" name="sequence" />
+        <field name="view_id" ref="view_student_student_tree_2" />
+        <field name="act_window_id" ref="action_student_student_form_2" />
+    </record>
+
+    <!-- Action Of Form, Tree & Kanban Views Of Student Information -->
+    <record id="action_student_student_form_12" model="ir.actions.act_window">
+        <field name="name">Students</field>
+        <field name="domain">[('state', '=', 'done')]</field>
+        <field name="context">{'search_default_done_student':1}</field>
+        <field name="res_model">student.student</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="" />
+        <field name="search_view_id" ref="view_student_student_search_1" />
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- Action of Alumni state -->
+    <record id="action_student_alumni" model="ir.actions.act_window">
+        <field name="name">Student Alumni</field>
+        <field name="domain">[('active','=',False)]</field>
+        <field name="res_model">student.student</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <!-- Action View 1 Of Kanban View Of Student Information-->
+    <record id="action_view_student_student_kanban_1" model="ir.actions.act_window.view">
+        <field name="view_mode">kanban</field>
+        <field eval="31" name="sequence" />
+        <field name="view_id" ref="student_student_kanban_view" />
+        <field name="act_window_id" ref="action_student_student_form_12" />
+    </record>
+</odoo>

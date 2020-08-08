@@ -106,7 +106,6 @@ class StudentStudent(models.Model):
             res.user_id.write({'groups_id': [(6, 0, group_list)]})
         return res
 
-    @api.multi
     def write(self, vals):
         teacher = self.env['school.teacher']
         if vals.get('parent_id'):
@@ -240,12 +239,10 @@ class StudentStudent(models.Model):
                                      )
     active = fields.Boolean(default=True)
 
-    @api.multi
     def set_to_draft(self):
         '''Method to change state to draft'''
         self.state = 'draft'
 
-    @api.multi
     def set_alumni(self):
         '''Method to change state to alumni'''
         student_user = self.env['res.users']
@@ -258,25 +255,21 @@ class StudentStudent(models.Model):
             if user:
                 user.active = False
 
-    @api.multi
     def set_done(self):
         '''Method to change state to done'''
         self.state = 'done'
 
-    @api.multi
     def admission_draft(self):
         '''Set the state to draft'''
         self.state = 'draft'
 
-    @api.multi
     def set_terminate(self):
         self.state = 'terminate'
 
-    @api.multi
     def cancel_admission(self):
         self.state = 'cancel'
 
-    @api.multi
+
     def admission_done(self):
         '''Method to confirm admission'''
         school_standard_obj = self.env['school.standard']

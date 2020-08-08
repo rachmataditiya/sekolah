@@ -55,12 +55,10 @@ class AcademicYear(models.Model):
             return year_id.id
         return False
 
-    @api.multi
     def name_get(self):
         '''Method to display name and code'''
         return [(rec.id, ' [' + rec.code + ']' + rec.name) for rec in self]
 
-    @api.multi
     def generate_academicmonth(self):
         interval = 1
         month_obj = self.env['academic.month']
@@ -277,7 +275,6 @@ class SchoolStandard(models.Model):
             raise ValidationError(_('''Tingkat dan nama kelas tidak boleh sama!'''
                                     ))
 
-    @api.multi
     def unlink(self):
         for rec in self:
             if rec.student_ids or rec.subject_ids or rec.syllabus_ids:
@@ -292,7 +289,6 @@ class SchoolStandard(models.Model):
             raise ValidationError(_('''Kapasitas kursi harus lebih besar dari
                 0!'''))
 
-    @api.multi
     def name_get(self):
         '''Method to display standard and division'''
         return [(rec.id, rec.standard_id.name + '[' + rec.division_id.name +
@@ -618,7 +614,6 @@ class StudentNews(models.Model):
             raise ValidationError(_('''Configure expiry date greater than
             current date!'''))
 
-    @api.multi
     def news_update(self):
         '''Method to send email to student for news update'''
         emp_obj = self.env['hr.employee']
@@ -716,7 +711,6 @@ class ClassRoom(models.Model):
 class Report(models.Model):
     _inherit = "ir.actions.report"
 
-    @api.multi
     def render_template(self, template, values=None):
         student_id = self.env['student.student'].\
             browse(self._context.get('student_id', False))

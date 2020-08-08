@@ -11,7 +11,6 @@ class AssignRollNo(models.TransientModel):
 
     standard_id = fields.Many2one('school.standard', 'Class', required=True)
 
-    @api.multi
     def assign_rollno(self):
         '''Method to assign roll no to students'''
         student_obj = self.env['student.student']

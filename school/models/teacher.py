@@ -64,7 +64,6 @@ class SchoolTeacher(models.Model):
             self.parent_crt(teacher_id)
         return teacher_id
 
-    @api.multi
     def parent_crt(self, manager_id):
         stu_parent = []
         if manager_id.stu_parent_id:
@@ -90,7 +89,6 @@ class SchoolTeacher(models.Model):
         group_ids = [group.id for group in groups]
         user_rec.write({'groups_id': [(6, 0, group_ids)]})
 
-    @api.multi
     def write(self, vals):
         if vals.get('is_parent'):
             self.parent_crt(self)

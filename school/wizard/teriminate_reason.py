@@ -9,7 +9,6 @@ class TerminateReason(models.TransientModel):
 
     reason = fields.Text('Reason')
 
-    @api.multi
     def save_terminate(self):
         '''Method to terminate student and change state to terminate'''
         self.env['student.student'

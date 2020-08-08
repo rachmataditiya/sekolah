@@ -15,13 +15,5 @@
                 </form>
             </field>
         </record>
-        <act_window id="act_send_email"
-            name="Send Email"
-            res_model="send.email"
-            src_model="student.student"
-            view_mode="form"
-            target="new"
-            view_type="form" groups="school.group_school_administration,school.group_school_teacher"
-            />
-        </data>
+    </data>
 </odoo>

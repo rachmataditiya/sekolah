@@ -23,5 +23,5 @@
             target="new"
             view_type="form" groups="school.group_school_administration,school.group_school_teacher"
             />
-        <data>
+        </data>
 </odoo>

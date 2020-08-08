@@ -23,7 +23,7 @@ class MailTemplate(models.Model):
 
 class SendMail(models.TransientModel):
     _name = "send.email"
-    _description = "Send Mail"
+    _description = "Kirim Email"
 
     note = fields.Text('Text')
 

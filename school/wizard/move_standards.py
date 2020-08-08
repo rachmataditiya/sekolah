@@ -5,7 +5,7 @@ from odoo import models, fields, api
 
 class MoveStandards(models.TransientModel):
     _name = 'move.standards'
-    _description = "Move Standards"
+    _description = "Pindah Tingkat"
 
     academic_year_id = fields.Many2one('academic.year', 'Academic Year',
                                        required=True)

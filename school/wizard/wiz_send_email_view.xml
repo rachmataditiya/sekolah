@@ -8,12 +8,12 @@
         <field name="name">send.email.form</field>
         <field name="model">send.email</field>
         <field name="arch" type="xml">
-            <form string="Send Email">
-                <field name='note' nolabel="0" height="350" width="350" placeholder="Notes"/>
+            <form string="Kirim Email">
+                <field name='note' nolabel="0" height="350" width="350" placeholder="Catatan"/>
                 <newline/>
                 <footer>
-                    <button name="send_email" string="Send Email" class="btn btn-sm btn-default fa fa-envelope" type="object"/>
-                    <button special="cancel" string="Cancel"/>
+                    <button name="send_email" string="Kirim Email" class="btn btn-sm btn-default fa fa-envelope" type="object"/>
+                    <button special="cancel" string="Batal"/>
                 </footer>
             </form>
         </field>

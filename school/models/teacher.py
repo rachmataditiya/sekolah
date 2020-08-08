@@ -22,9 +22,6 @@ class SchoolTeacher(models.Model):
                                   'Mata Pelajaran ')
     school_id = fields.Many2one('school.school', "Jenjang",
                                 related="standard_id.school_id", store=True)
-    category_ids = fields.Many2many('hr.employee.category',
-                                    'employee_category_rel', 'emp_id',
-                                    'category_id', 'Tags')
     department_id = fields.Many2one('hr.department', 'Departemen')
     is_parent = fields.Boolean('Is Parent')
     stu_parent_id = fields.Many2one('school.parent', 'Orang Tua dari')

@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Odoo",
+            "type": "python",
+            "request": "launch",
+            "stopOnEntry": false,
+            "console": "integratedTerminal",
+            "program": "C:\\Users\\arkana\\Documents\\Odoo\\odoo13\\odoo-bin",
+            "args": [
+                "--config=C:\\Users\\arkana\\Documents\\Odoo\\config\\odoo-sekolah.conf",
+                //"--update=rest_api",
+                //"--db-filter=102dke",
+            ],
+        }
+    ]
+}

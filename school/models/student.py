@@ -4,6 +4,7 @@ import time
 import base64
 from datetime import date
 from odoo import models, fields, api, tools, _
+from odoo.tools import ImageProcess
 from odoo.modules import get_module_resource
 from odoo.exceptions import except_orm
 from odoo.exceptions import ValidationError
@@ -13,10 +14,10 @@ from .import school
 # added import statement in try-except because when server runs on
 # windows operating system issue arise because this library is not in Windows.
 try:
-    from odoo.tools import image_colorize, image_resize_image_big
+    from odoo.tools.ImageProcess import colorize, resize 
 except:
-    image_colorize = False
-    image_resize_image_big = False
+    colorize = False
+    resize = False
 
 
 class StudentStudent(models.Model):
@@ -122,9 +123,8 @@ class StudentStudent(models.Model):
         '''Method to get default Image'''
         image_path = get_module_resource('hr', 'static/src/img',
                                          'default_image.png')
-        return tools.image_resize_image_big(base64.b64encode(open(image_path,
-                                                                  'rb').read()
-                                                             ))
+        image_process = ImageProcess(base64.b64encode(open(image_path,'rb').read()))
+        return image_process.resize(max_width=400, max_height=600).image_base64()
 
     @api.depends('state')
     def _compute_teacher_user(self):
@@ -134,6 +134,8 @@ class StudentStudent(models.Model):
                                                   )
                 if teacher:
                     rec.teachr_user_grp = True
+                else:
+                    rec.teachr_user_grp = False
 
     @api.model
     def check_current_year(self):

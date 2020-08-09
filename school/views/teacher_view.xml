@@ -57,7 +57,9 @@
                                 <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
                             </button>
                         </div>
+                        <!--
                         <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;:&quot;image_medium&quot;}"/>
+                        -->
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
                             <h1>
@@ -141,7 +143,7 @@
         <record id="action_school_teacher_form" model="ir.actions.act_window">
             <field name="name">Teacher Profile</field>
             <field name="res_model">school.teacher</field>
-            <field name="binding_view_types">tree,form</field>
+            <field name="view_mode">tree,form</field>
         </record>
 
         <menuitem id="teacher_profile_menu" name="Guru" action="action_school_teacher_form" 

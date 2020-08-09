@@ -39,8 +39,8 @@
                         <group string="Informasi Siswa">
                             <field name="student_code" readonly="1" />
                             <field name="roll_no" help="Nomor Urut Siswa" readonly="1"/>
-                            <field name="year" placeholder="Tahun Ajaran" widget="selection" help="Tahun ajaran siswa" attrs="{'readonly':['|',('state','in',['alumni','terminate']),('teachr_user_grp','=',True)]}"/>
-                            <field name="school_id" placeholder="Jenjang" widget="selection" help="Jenjang" attrs="{'readonly':['|',('state','in',['alumni','terminate']),('teachr_user_grp','=',True)]}"/>
+                            <field name="year" placeholder="Tahun Ajaran" widget="selection" help="Tahun ajaran siswa" attrs="{'readonly':['|',('state','in',['alumni','terminate'])]}"/>
+                            <field name="school_id" placeholder="Jenjang" widget="selection" help="Jenjang" attrs="{'readonly':['|',('state','in',['alumni','terminate'])]}"/>
                         </group>
                         <group string="Informasi Tingkat">
                             <field name="standard_id" placeholder="Tingkat" readonly="1" domain="[('school_id','=',school_id)]" widget="selection" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
@@ -64,7 +64,6 @@
                             <field name="mobile" placeholder="No HP" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
                             <field name="email" placeholder="Alamat Email" String="Email" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
                             <field name="website" widget="url" placeholder="e.g. www.arkana.co.id" attrs="{'readonly':[('state','in',['alumni','terminate'])]}"/>
-                            <field name="teachr_user_grp" invisible="1"/>
                         </group>
                     </group>
                     <notebook>
@@ -632,12 +631,12 @@
         <field name="domain">['|',('state','=','draft'),('state','=','cancel')]</field>
         <field name="view_id" ref="view_student_student_form_2" />
         <field name="search_view_id" ref="view_student_student_search_2" />
-        <field name="binding_view_types">kanban,tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <!-- Action View 2 Of Kanban View Of Student Information -->
     <record id="action_view_student_student_kanban_2" model="ir.actions.act_window.view">
-        <field name="binding_view_types">kanban</field>
+        <field name="view_mode">kanban</field>
         <field eval="21" name="sequence" />
         <field name="view_id" ref="student_student_kanban_view" />
         <field name="act_window_id" ref="action_student_student_form_2" />
@@ -645,7 +644,7 @@
 
     <!-- Action View 2 Of Tree View Of Student Information -->
     <record id="action_student_student_tree_2" model="ir.actions.act_window.view">
-        <field name="binding_view_types">tree</field>
+        <field name="view_mode">tree</field>
         <field eval="20" name="sequence" />
         <field name="view_id" ref="view_student_student_tree_2" />
         <field name="act_window_id" ref="action_student_student_form_2" />
@@ -659,7 +658,7 @@
         <field name="res_model">student.student</field>
         <field name="view_id" ref="" />
         <field name="search_view_id" ref="view_student_student_search_1" />
-        <field name="binding_view_types">kanban,tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <!-- Action of Alumni state -->
@@ -667,12 +666,12 @@
         <field name="name">Student Alumni</field>
         <field name="domain">[('active','=',False)]</field>
         <field name="res_model">student.student</field>
-        <field name="binding_view_types">kanban,tree,form</field>
+        <field name="view_mode">kanban,tree,form</field>
     </record>
 
     <!-- Action View 1 Of Kanban View Of Student Information-->
     <record id="action_view_student_student_kanban_1" model="ir.actions.act_window.view">
-        <field name="binding_view_types">kanban</field>
+        <field name="view_mode">kanban</field>
         <field eval="31" name="sequence" />
         <field name="view_id" ref="student_student_kanban_view" />
         <field name="act_window_id" ref="action_student_student_form_12" />

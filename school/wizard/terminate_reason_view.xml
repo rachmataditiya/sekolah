@@ -24,7 +24,7 @@
         <record id="action_terminate_wizard" model="ir.actions.act_window">
             <field name="name">Termination Reason</field>
             <field name="res_model">terminate.reason</field>
-            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
             <field name="target">new</field>
         </record>
     </data>
